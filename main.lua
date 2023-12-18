@@ -45,6 +45,18 @@ end
 -- button is the button on the mouse that was pressed
 function love.mousepressed(x, y, button, istouch, presses)
 	if button == 1 then
-		score = score + 1
+		local mouseToTarget = distanceBetween(x, y, target.x, target.y)
+		if mouseToTarget < target.radius then
+			score = score + 1
+			target.x = math.random(target.radius, love.graphics.getWidth() - target.radius)
+			target.y = math.random(target.radius, love.graphics.getHeight() - target.radius)
+		end
 	end
+end
+
+-- distance between two points
+-- x1, y1 are the coordinates of the first point
+-- x2, y2 are the coordinates of the second point
+function distanceBetween(x1, y1, x2, y2)
+	return math.sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
 end
