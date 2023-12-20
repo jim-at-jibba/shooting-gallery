@@ -9,7 +9,7 @@ function love.load()
 	target.radius = 50
 
 	score = 0
-	timer = 0
+	timer = 10
 
 	-- set custom font
 	gameFont = love.graphics.newFont(40)
@@ -17,7 +17,16 @@ end
 
 -- update is called every frame
 -- 60 frames a second
-function love.update(dt) end
+-- dt will adjust for different frame rates
+function love.update(dt)
+	if timer > 0 then
+		timer = timer - dt
+	end
+
+	if timer < 0 then
+		timer = 0
+	end
+end
 
 -- draw graphsics to the screen
 -- called every frame
@@ -37,6 +46,7 @@ function love.draw()
 	love.graphics.setColor(1, 1, 1)
 	love.graphics.setFont(gameFont)
 	love.graphics.print(score, 0, 0)
+	love.graphics.print(math.ceil(timer), 300, 0)
 end
 
 -- mousepressed is a function that is called
